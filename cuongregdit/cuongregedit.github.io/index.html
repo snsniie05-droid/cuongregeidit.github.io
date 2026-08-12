@@ -1,0 +1,244 @@
+<!-- TOÀN BỘ MÃ NGUỒN HTML/CSS/JS CHO TRANG KEN MOD Z (dùng mod-list) – NỀN HỒNG/TRẮNG -->
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tiểu Cường Reg - Kho Mod Game</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #ffe6f0 0%, #ffffff 100%);
+            color: #1a1a1a;
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+        /* ===== HEADER ===== */
+        header {
+            background: #fce4ec;
+            padding: 15px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 3px solid #f06292;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        .logo {
+            font-size: 28px;
+            font-weight: bold;
+            color: #c2185b;
+            text-shadow: 0 0 10px rgba(194,24,91,0.2);
+        }
+        .logo a { text-decoration: none; color: inherit; }
+        nav a {
+            color: #880e4f;
+            text-decoration: none;
+            margin-left: 20px;
+            font-size: 15px;
+            font-weight: 600;
+            transition: color 0.3s;
+        }
+        nav a:hover { color: #e91e63; }
+
+        /* ===== CONTAINER ===== */
+        .container {
+            max-width: 1200px;
+            margin: 30px auto;
+            padding: 0 15px;
+        }
+        .intro {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .intro h1 {
+            color: #c2185b;
+            font-size: 32px;
+            margin-bottom: 10px;
+        }
+        .intro p {
+            color: #555;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        /* ===== SEARCH ===== */
+        .search-box {
+            display: block;
+            width: 100%;
+            max-width: 400px;
+            margin: 0 auto 30px;
+            padding: 10px 15px;
+            background: #fff;
+            border: 1px solid #f8bbd0;
+            border-radius: 20px;
+            color: #1a1a1a;
+            font-size: 16px;
+            outline: none;
+            transition: border-color 0.3s;
+        }
+        .search-box:focus { border-color: #e91e63; }
+
+        /* ===== MOD LIST ===== */
+        .mod-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 24px;
+        }
+        .mod-item {
+            background: #fff0f3;
+            border-radius: 12px;
+            overflow: hidden;
+            border: 1px solid #f8bbd0;
+            transition: transform 0.2s, border-color 0.2s, box-shadow 0.2s;
+        }
+        .mod-item:hover {
+            transform: translateY(-6px);
+            border-color: #e91e63;
+            box-shadow: 0 10px 25px rgba(233,30,99,0.15);
+        }
+        .mod-item img {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+            background: #fce4ec;
+            display: block;
+        }
+        .mod-item .mod-content {
+            padding: 16px;
+        }
+        .mod-item .mod-content h3 {
+            color: #c2185b;
+            font-size: 18px;
+            margin-bottom: 8px;
+        }
+        .mod-item .mod-content p {
+            color: #555;
+            font-size: 14px;
+            margin-bottom: 14px;
+        }
+        .btn-download {
+            display: inline-block;
+            background: #e91e63;
+            color: #fff;
+            padding: 8px 18px;
+            border-radius: 6px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: background 0.3s;
+        }
+        .btn-download:hover {
+            background: #c2185b;
+        }
+
+        /* ===== FOOTER ===== */
+        footer {
+            text-align: center;
+            padding: 20px;
+            background: #fce4ec;
+            color: #880e4f;
+            margin-top: 40px;
+            border-top: 1px solid #f8bbd0;
+        }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 600px) {
+            header { flex-direction: column; gap: 10px; }
+            nav { display: flex; flex-wrap: wrap; justify-content: center; }
+            nav a { margin: 5px; }
+            .mod-list { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo"><a href="#">TIỂU CƯỜNG REG</a></div>
+        <nav>
+            <a href="#">Trang chủ</a>
+            <a href="#freefire">Free Fire</a>
+            <a href="#lienhe">Liên hệ</a>
+        </nav>
+    </header>
+    <div class="container">
+        <div class="intro">
+            <h1>Kho Mod Game</h1>
+            <p>Chia sẻ mod, script, hack mới nhất cho các tựa game hot. Tải về an toàn, cập nhật thường xuyên.</p>
+        </div>
+        <input type="text" id="searchInput" class="search-box" placeholder="Tìm kiếm mod..." oninput="locMod()">
+        <div class="mod-list" id="modList"></div>
+    </div>
+    <footer>
+        <p>&copy; 2026 Tiểu Cường Reg. Mọi bản quyền thuộc về nhà phát triển. Trang web chỉ mang tính chất chia sẻ.</p>
+    </footer>
+    <script>
+        // Dữ liệu mod (thêm nhiều mod nếu muốn)
+        const danhSachMod = [
+            { 
+                tieuDe: "Mod Skin THỎ THIÊN HÀ THỎ ĐEN", 
+                anh: "assets/css/js/images/tho.png", 
+                moTa: "Mod skin nhân vật. An toàn.", 
+                link: "v1.html", 
+                danhMuc: "freefire" 
+            },
+            { 
+                tieuDe: "Mod HOẠT ẢNH THẦN MA", 
+                anh: "assets/css/js/images/thanma.png", 
+                moTa: "V2 - 👽 Hoạt ảnh Hồi Máu, Nhảy Lốp, Cửa Sổ.", 
+                link: "v2.html", 
+                danhMuc: "freefire" 
+            },
+            { 
+                tieuDe: "Mod Skin M590 ĐA DIỆN", 
+                anh: "assets/css/js/images/M590.png", 
+                moTa: "Mod skin M590. An toàn.", 
+                link: "M590.html", 
+                danhMuc: "freefire" 
+            },
+            { 
+                tieuDe: "Mod Skin NINJA", 
+                anh: "assets/css/js/images/ninja.png", 
+                moTa: "Mod skin nhân vật Ninja. An toàn.", 
+                link: "v4.html", 
+                danhMuc: "freefire" 
+            }
+        ];
+
+        function hienThiMod(danhSach) {
+            const container = document.getElementById('modList');
+            container.innerHTML = '';
+            if (danhSach.length === 0) {
+                container.innerHTML = '<p style="grid-column: 1 / -1; text-align: center; color: #888;">Không tìm thấy mod phù hợp.</p>';
+                return;
+            }
+            danhSach.forEach(mod => {
+                const item = document.createElement('div');
+                item.className = 'mod-item';
+                item.innerHTML = `
+                    <img src="${mod.anh}" alt="${mod.tieuDe}" onerror="this.src='https://via.placeholder.com/400x200/fce4ec/c2185b?text=No+Image'">
+                    <div class="mod-content">
+                        <h3>${mod.tieuDe}</h3>
+                        <p>${mod.moTa}</p>
+                        <a href="${mod.link}" class="btn-download">Tải xuống</a>
+                    </div>
+                `;
+                container.appendChild(item);
+            });
+        }
+
+        function locMod() {
+            const tuKhoa = document.getElementById('searchInput').value.toLowerCase().trim();
+            const ketQua = danhSachMod.filter(mod => 
+                mod.tieuDe.toLowerCase().includes(tuKhoa) || 
+                mod.danhMuc.toLowerCase().includes(tuKhoa) || 
+                mod.moTa.toLowerCase().includes(tuKhoa)
+            );
+            hienThiMod(ketQua);
+        }
+
+        // Hiển thị tất cả mod khi trang tải
+        document.addEventListener('DOMContentLoaded', () => hienThiMod(danhSachMod));
+    </script>
+</body>
+</html>

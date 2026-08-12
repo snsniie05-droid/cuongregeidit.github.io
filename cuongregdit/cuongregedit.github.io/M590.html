@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Mod Skin FF V1 | Tiểu Cường Reg</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #ffe6f0 0%, #ffffff 100%);
+            color: #1a1a1a;
+            min-height: 100vh;
+        }
+        /* ===== HEADER ===== */
+        header {
+            background: #fce4ec;
+            padding: 16px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 3px solid #f06292;
+            flex-wrap: wrap;
+        }
+        .logo a {
+            font-size: 26px;
+            font-weight: 800;
+            color: #c2185b;
+            text-decoration: none;
+        }
+        nav a {
+            color: #880e4f;
+            text-decoration: none;
+            margin-left: 24px;
+            font-weight: 600;
+            font-size: 15px;
+            transition: color 0.3s;
+        }
+        nav a:hover {
+            color: #e91e63;
+        }
+
+        /* ===== CONTAINER ===== */
+        .container {
+            max-width: 900px;
+            margin: 30px auto;
+            padding: 0 16px;
+        }
+
+        /* ===== MOD DETAIL ===== */
+        .mod-detail {
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(4px);
+            padding: 30px 35px;
+            border-radius: 20px;
+            border: 1px solid #f8bbd0;
+            box-shadow: 0 8px 25px rgba(233,30,99,0.12);
+        }
+        .mod-detail h1 {
+            color: #c2185b;
+            font-size: 28px;
+            text-align: center;
+            border-bottom: 2px solid #f06292;
+            padding-bottom: 14px;
+            margin-bottom: 18px;
+        }
+        .mod-detail .meta {
+            color: #555;
+            text-align: center;
+            font-size: 14px;
+            margin-bottom: 20px;
+        }
+        .mod-detail .meta span {
+            color: #c2185b;
+            font-weight: 600;
+        }
+
+        .version-tag {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            justify-content: center;
+            margin: 12px 0 24px;
+        }
+        .version-tag span {
+            background: #fff;
+            padding: 6px 18px;
+            border-radius: 30px;
+            font-size: 14px;
+            font-weight: 600;
+            color: #c2185b;
+            border: 1px solid #f06292;
+        }
+
+        .section {
+            margin-bottom: 26px;
+        }
+        .section h2 {
+            color: #880e4f;
+            font-size: 20px;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .section h2::before {
+            content: "▶";
+            color: #e91e63;
+            font-size: 18px;
+        }
+        .section ul {
+            list-style: none;
+            padding-left: 20px;
+        }
+        .section ul li {
+            padding: 4px 0 4px 24px;
+            position: relative;
+            color: #222;
+        }
+        .section ul li::before {
+            content: "●";
+            color: #e91e63;
+            position: absolute;
+            left: 0;
+            font-size: 14px;
+        }
+        .badge {
+            display: inline-block;
+            background: #e91e63;
+            color: #fff;
+            font-size: 11px;
+            font-weight: 700;
+            padding: 2px 12px;
+            border-radius: 30px;
+            margin-right: 6px;
+            text-transform: uppercase;
+        }
+
+        /* ===== DOWNLOAD ===== */
+        .download-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 24px;
+            margin-top: 14px;
+        }
+        .download-box {
+            background: #fff0f3;
+            padding: 18px 16px;
+            border-radius: 14px;
+            border: 1px solid #f8bbd0;
+            text-align: center;
+            transition: 0.3s;
+            cursor: pointer;
+        }
+        .download-box:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 6px 18px rgba(233,30,99,0.15);
+        }
+        .download-box h3 {
+            color: #880e4f;
+            font-size: 18px;
+            margin-bottom: 6px;
+        }
+        .download-box .version-row {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            font-size: 13px;
+            font-weight: 600;
+            color: #c2185b;
+            margin: 6px 0 12px;
+        }
+        .download-box .version-row span {
+            background: #fff;
+            padding: 2px 14px;
+            border-radius: 20px;
+            border: 1px solid #f06292;
+        }
+        .btn-download {
+            display: inline-block;
+            background: #e91e63;
+            color: #fff;
+            padding: 8px 24px;
+            border-radius: 30px;
+            font-weight: 700;
+            font-size: 14px;
+            text-decoration: none;
+            transition: 0.3s;
+            border: none;
+            cursor: pointer;
+        }
+        .btn-download:hover {
+            background: #c2185b;
+            transform: scale(1.04);
+        }
+
+        /* ===== MODAL ===== */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(3px);
+            justify-content: center;
+            align-items: center;
+            z-index: 999;
+        }
+        .modal-overlay.active {
+            display: flex;
+        }
+        .modal-box {
+            background: #fff;
+            border-radius: 20px;
+            padding: 30px 35px;
+            max-width: 400px;
+            width: 90%;
+            text-align: center;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+            animation: fadeIn 0.25s ease;
+        }
+        .modal-box h2 {
+            color: #c2185b;
+            margin-bottom: 20px;
+        }
+        .modal-box .modal-version {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+        .modal-box .modal-version a {
+            display: block;
+            background: #fce4ec;
+            padding: 12px;
+            border-radius: 12px;
+            color: #880e4f;
+            font-weight: 700;
+            text-decoration: none;
+            border: 1px solid #f06292;
+            transition: 0.3s;
+        }
+        .modal-box .modal-version a:hover {
+            background: #e91e63;
+            color: #fff;
+            border-color: #e91e63;
+        }
+        .modal-close {
+            margin-top: 20px;
+            background: #9e9e9e;
+            color: #fff;
+            border: none;
+            padding: 8px 24px;
+            border-radius: 30px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        .modal-close:hover {
+            background: #757575;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: scale(0.95); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        .note {
+            background: #fff0f3;
+            padding: 14px 20px;
+            border-radius: 12px;
+            border-left: 4px solid #e91e63;
+            color: #333;
+            margin-top: 22px;
+            font-style: italic;
+            font-size: 14px;
+        }
+        .back-link {
+            display: inline-block;
+            margin-top: 22px;
+            color: #c2185b;
+            font-weight: 600;
+            text-decoration: none;
+            transition: 0.3s;
+        }
+        .back-link:hover {
+            text-decoration: underline;
+            color: #880e4f;
+        }
+
+        footer {
+            background: #fce4ec;
+            text-align: center;
+            padding: 16px 20px;
+            color: #880e4f;
+            font-size: 14px;
+            border-top: 1px solid #f8bbd0;
+            margin-top: 40px;
+        }
+
+        @media (max-width: 600px) {
+            header { flex-direction: column; gap: 10px; text-align: center; padding: 12px 16px; }
+            nav a { margin: 0 10px; font-size: 14px; }
+            .mod-detail { padding: 18px; }
+            .download-grid { grid-template-columns: 1fr; gap: 16px; }
+            .mod-detail h1 { font-size: 22px; }
+        }
+    </style>
+</head>
+<body>
+
+<!-- ===== HEADER ===== -->
+<header>
+    <div class="logo"><a href="index.html">TIỂU CƯỜNG REG</a></div>
+    <nav>
+        <a href="index.html">Trang chủ</a>
+        <a href="#">Hướng dẫn</a>
+        <a href="#">Tải về</a>
+        <a href="#">Liên hệ</a>
+    </nav>
+</header>
+
+<!-- ===== NỘI DUNG ===== -->
+<div class="container">
+    <div class="mod-detail">
+        <img src="assets/css/js/images/M590.png" alt="M590 ĐA Diện" style="width:100%; border-radius:10px; margin-bottom:16px;">
+        <h1>🔥 MOD SKIN FREE FIRE - M590 ĐA Diện</h1>
+        <div class="meta">
+            <span>📅 Ngày đăng:</span> 03/08/2026 &nbsp;|&nbsp; <span>👤 Tác giả:</span> Tiểu Cường Reg
+        </div>
+
+        <div class="version-tag">
+            <span>✅ FF Thường</span>
+            <span>✅ FF Max</span>
+            <span>📱 Android</span>
+            <span>🍏 iOS</span>
+        </div>
+
+        <!-- Nhân vật -->
+        <div class="section">
+            <h2>sử dụng skin phong xà</h2>
+        </div>
+
+        <!-- V1 -->
+        <div class="section">
+            <h2>M590 ĐA Diện</h2>
+            <ul>
+                <li><span class="badge">TRANG BỊ</span> Phối được tóc - quần - giày</li>
+            </ul>
+        </div>
+
+        <!-- TẢI XUỐNG -->
+        <div class="section">
+            <h2>📥 Tải xuống</h2>
+            <div class="download-grid">
+                <!-- Android -->
+                <div class="download-box" data-target="android">
+                    <h3>📱 Android</h3>
+                    <div class="version-row">
+                        <span>FF Thường</span>
+                        <span>FF Max</span>
+                    </div>
+                    <button class="btn-download" data-platform="android">Tải mod Android</button>
+                </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="note">
+            💡 <strong>Hướng dẫn:</strong> Tải file mod về, giải nén và copy vào thư mục <code>Android/data/com.dts.freefireth/files/</code> (hoặc FF Max). Nhớ backup file gốc trước khi thay thế.
+        </div>
+
+        <div style="text-align: center;">
+            <a href="index.html" class="back-link">← Quay lại trang chủ</a>
+        </div>
+    </div>
+</div>
+
+<!-- ===== MODAL ===== -->
+<div class="modal-overlay" id="modalOverlay">
+    <div class="modal-box">
+        <h2 id="modalTitle">Chọn phiên bản</h2>
+        <div class="modal-version" id="modalVersionList">
+            <!-- sẽ được JS điền -->
+        </div>
+        <button class="modal-close" id="modalClose">Đóng</button>
+    </div>
+</div>
+
+<!-- ===== FOOTER ===== -->
+<footer>
+    <p>&copy; 2026 Tiểu Cường Reg - Kho Mod Game Miễn Phí</p>
+</footer>
+
+<!-- ===== JAVASCRIPT ===== -->
+<script
+    <script>
+    (function() {
+        // ========== 4 LINK KHÁC NHAU ==========
+        const LINK_ANDROID_FF = 'https://link4m.net/KkYiJUj9';
+        const LINK_ANDROID_MAX = 'https://link4m.org/l3NiFG';
+        const LINK_IOS_FF = 'https://link3.example.com/ios_ff';
+        const LINK_IOS_MAX = 'https://link4.example.com/ios_max';
+
+        // Các nút tải
+        const btnAndroid = document.querySelector('.btn-download[data-platform="android"]');
+        const btnIos = document.querySelector('.btn-download[data-platform="ios"]');
+
+        // Modal elements
+        const overlay = document.getElementById('modalOverlay');
+        const modalTitle = document.getElementById('modalTitle');
+        const modalVersionList = document.getElementById('modalVersionList');
+        const modalClose = document.getElementById('modalClose');
+
+        // Hàm mở modal với platform tương ứng
+        function openModal(platform) {
+            const platformName = platform === 'android' ? 'Android' : 'iOS';
+            modalTitle.textContent = `📥 Tải mod ${platformName}`;
+
+            if (platform === 'android') {
+                modalVersionList.innerHTML = `
+                    <a href="${LINK_ANDROID_FF}" target="_blank">FF Thường</a>
+                    <a href="${LINK_ANDROID_MAX}" target="_blank">FF Max</a>
+                `;
+            } else if (platform === 'ios') {
+                modalVersionList.innerHTML = `
+                    <a href="${LINK_IOS_FF}" target="_blank">FF Thường</a>
+                    <a href="${LINK_IOS_MAX}" target="_blank">FF Max</a>
+                `;
+            }
+
+            overlay.classList.add('active');
+        }
+
+        btnAndroid.addEventListener('click', function(e) {
+            e.stopPropagation();
+            openModal('android');
+        });
+
+        btnIos.addEventListener('click', function(e) {
+            e.stopPropagation();
+            openModal('ios');
+        });
+
+        modalClose.addEventListener('click', function() {
+            overlay.classList.remove('active');
+        });
+
+        overlay.addEventListener('click', function(e) {
+            if (e.target === overlay) {
+                overlay.classList.remove('active');
+            }
+        });
+
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                overlay.classList.remove('active');
+            }
+        });
+    })();
+</script>
+</body>
+</html>
